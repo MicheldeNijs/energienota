@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="energienota.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@300&display=swap" rel="stylesheet">
+
+    <title>Energienota berekening</title>
+</head>
+<body">
+
+    <img src="home_icon.png" alt="Home" width="42" height="42">	
+
+    <h1>Energienota narekenen en voorspellen</h1>
+    <h3>Al ken je de tarieven van je variabele of vaste contract, 
+        toch kan het lastig zijn te weten wat je nu echt onder de streep hoort te betalen. 
+        Deze pagina rekent het inzichtelijk voor, en geeft achtergrond informatie om alles duidelijk maken. <br>
+    </h3>
+
+    <h3>
+        Lees deze korte motivatie: 
+        <a href="uitleg/motivatie.html" target="_blank">Waarom je energienota narekenen?</a>.
+    </h3>
+
+    <button id="disclaimer">DISCLAIMER..</button><br>
+
+    <dialog id="disclamimerBox">
+        <form method="dialog">
+          <section>
+            <p>
+                Disclaimer: <br><br>
+                Aan de uitleg en uitkomsten van deze site kunnen geen rechten worden ontleend. <br>
+                Dit is een persoonlijke website waarop ik mijn kennis deel om het anderen gemakkelijker te maken voor zichzelf inzicht te verkrijgen. <br>
+                <br>
+                Die kennis is gebaseerd op mijn interpretatie van openbare informatie op het web 
+                en is voor publicatie gestaafd aan de hand van mijn eigen nota's en een enkele andere.<br>
+                Bij afwijkende situaties en afwijkende reken methodes van andere leveranciers kunnen de resultaten mogelijk afwijken. <br>
+                <br>
+                Laat dit je er niet van weerhouden om er gebruik van te maken. Vooral wanneer het je zelf niet lukt om je energienota te doorgronden. <br>
+                Maar wees kritisch. Test in hoeverre de berekening klopt door deze een keer in te vullen op basis van een nota 
+                die je van je energieleverancier over een eerdere periode ontvangen hebt.<br>
+                <br>
+                De berekening is beperkt tot de variabele en vaste energiecontracten van gewone huishoudens 
+                (niet voor zakelijke gebruikers of huishoudens met een verbruik van meer dan 10.000 kWh stroom per jaar, en ook niet voor dynamische contracten).<br>
+                De berekening werkt uitsluitend met algemene methodes op door de gebruiker opgegeven tarieven en andere gegevens (verkregen via de leverancier).<br>
+                <br>
+            </p>
+        </section>
+          <menu>
+            <button type="submit">Gelezen</button>
+          </menu>
+        </form>
+    </dialog>
+
+    <h3>Start hieronder met invullen - notaperiode, de tarieven van het contract en het verbruik - en de berekening wordt getoond.</h3>
+
+    <hr>
+    <div>
+        <h2>Notaperiode:</h2>
+
+        <h3>De notaperiode is van belang in verband met wijzigingen in 
+            <a href="uitleg/overheidsheffingen.html" target="_blank">overheidsheffingen</a>.
+        </h3>
+
+        <h3>Zie uitleg over de 
+            <a href="uitleg/notaperiode.html" target="_blank">notaperiode</a>.
+        </h3>
+
+        <label for="begin-datum">Begindatum:</label>
+        <input type="date" id="begin-datum" name="">
+    
+        <label for="eind-datum">t/m Einddatum:</label>
+        <input type="date" id="eind-datum" name="">
+
+        <br>
+        <p class="error" id="notaperiode-error"></p>
+        <p class="warning" id="notaperiode-warning"></p>
+
+        <button id="verwerk-nota-periode">VERWERK</button>
+
+        <br><br>
+
+        <hr>
+
+        <h2>Tarieven zoals afgegeven door de energieleverancier :</h2>
+
+        <h3> Zie uitleg over het invullen en de verwerking van je
+            <a href="uitleg/tarieven.html" target="_blank">tarieven</a>.
+        </h3>
+
+        <label for="incl-heffingen">Tarieven opgave is incl. overheidsheffingen ? </label>
+        <input type="checkbox" id="incl-heffingen" name="incl-heffingen" value="incl-heffingen" checked>
+        <br>
+        <label for="incl-btw">Tarieven opgave is incl. BTW ? </label>
+        <input type="checkbox" id="incl-btw" name="incl-btw"  value="incl-btw" checked>
+        <br>
+        <label for="vast-per">Vaste tarieven opgave is per: </label>
+        <select name="vast-per" id="vast-per">
+            <option value="dag">dag</option>
+            <option value="maand" selected>maand</option>
+          </select>
+        <br>
+        <br>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+
+        <table id="tarieven-tabel">
+            <thead>
+                <tr>
+                    <th>Tarief</th>
+                    <th colspan="2">Stroom per kWh</th>
+                    <th>Stroom per maand</th>
+                    <th>Gas per m3</th>
+                    <th>Gas per maand</th>
+                </tr>
+                <tr>
+                    <th>Ingangsdatum</th>
+                    <th>Normaal tarief</th>
+                    <th>Dal tarief</th>
+                    <th>Vast tarief</th>
+                    <th>Gas tarief</th>
+                    <th>Vast tarief</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+    
+            <tfoot></tfoot>
+        </table>
+
+    </div>
+
+    <button class="plus" id="extra-tarief-periode"> + </button>
+    <button id="verwerk-tarieven">VERWERK</button>
+    <p class="error" id="tarief-input-error"></p>
+    <p class="warning" id="tarief-input-warning"></p>
+
+    <h3>Uitgewerkte tarieven:</h3>
+
+    <p>De getoonde tarieven in de tabel zijn inclusief heffingen en BTW en afgerond op hele centen.
+        <br>Druk op de info knoppen (&#8505;) in kolom 'Details' voor een nadere verklaring per tarief.</p>
+
+    <div id="div-tarieven-uitgewerkt" style="overflow-x:auto;">
+    </div>
+    <br>
+
+    <dialog id="dialog-tarief-detail">
+        <form method="dialog">
+            <section>
+                <div id="div-info-tarief">
+                    <p id="p-info-tarief"></p>
+                    <input type="checkbox" id="info-tarief-afronden" name="info-tarief-afronden" value="info-tarief-afronden" checked>
+                    <label for="info-tarief-afronden">toon tarieven afgerond op hele centen</label>
+                </div>
+                <div id="div-tarief-detail-tabel" style="overflow-x:auto;"></div>
+
+            </section>
+
+            <menu>
+                <button type="submit">SLUIT</button>
+            </menu>
+
+        </form>
+    </dialog>
+
+    <hr>
+    <h2>Vermindering energiebelasting:</h2>
+
+    <h3>Zie uitleg bij 
+        <a href="uitleg/overheidsheffingen.html#vermindering-energiebelasting" target="_blank">overheidsheffingen</a>.
+    </h3>
+
+    <p id="vermindering-EB-tekst"></p>
+    <div id="vermindering-EB-tabel-container" style="overflow-x:auto;"></div>
+    <br>
+
+    <hr>
+    <h2>Vaste leveringskosten stroom:</h2>
+
+    <h3> Zie uitleg over 
+        <a href="uitleg/vaste leveringskosten.html" target="_blank">vaste leveringskosten</a>.
+    </h3>
+
+     <p>
+    <label for="vaste-kosten-stroom">Vaste leveringskosten stroom</label>
+    <input type="text" id="vaste-kosten-stroom" name="vaste-kosten-stroom" disabled/>
+    <label id="vaste-kosten-stroom-spec"></label>
+    </p>
+
+    <p>Ga hieronder verder met het invullen van het verbruik.</p>
+
+    <hr>
+    <h2>Stroom verbruik en kosten in de notaperiode (bekend of geschat):</h2>
+
+    <h3> Zie uitleg over het invullen en de verwerking van je
+        <a href="uitleg/verbruik.html" target="_blank">verbruik</a>.
+    </h3>
+
+    <p>Geef hier de hoeveelheid stroom die is afgenomen via de meter. In geval van zonnepanelen is dit dus de hoeveelheid vóór salderen.</p>
+
+    <label for="verbruik-stroom-normaal">Stroom verbruik normaal tarief (kWh):</label>
+    <input type="text" id="verbruik-stroom-normaal" />
+    <br>
+    <label for="verbruik-stroom-dal">Stroom verbruik dal tarief (kWh):</label>
+    <input type="text" id="verbruik-stroom-dal" />
+
+    <p class="error" id="automatisch-verdelen-stroom-input-error"></p>
+    <button id="automatisch-verdelen-verbruik-stroom">automatisch verdelen?</button>
+    
+    <p>Kies voor automatisch verdelen of neem hieronder de verdeling over van de nota voor een exacter resultaat.</p>
+
+    <div id="verbruik-stroom-tabel-container" style="overflow-x:auto;"></div>
+
+    <button id="verwerk-verbruik-stroom">VERWERK</button>
+    <p class="error" id="verbruik-stroom-input-error"></p>
+
+    <p>De tarieven in de totaalregel zijn een gemiddelde over de hele notaperiode, bepaald door het totaalbedrag te delen door het totaalverbuik
+        (voor resp. stroom normaal tarief en stroom dal tarief).<br>
+    </p>
+
+    <p>Getoonde bedragen bevatten:</p>
+    <input type="checkbox" class="kale-prijs-optie" id="kale-prijs-stroom" name="kale-prijs-stroom" value="kale-prijs-stroom" checked>
+    <label for="kale-prijs-stroom" class="kale-prijs-optie">Kale energieprijs</label>
+    <input type="checkbox" id="overheidsheffingen-stroom" class="heffingen-optie" name="overheidsheffingen-stroom" value="overheidsheffingen-stroom" checked>
+    <label for="overheidsheffingen-stroom" class="heffingen-optie">Overheidsheffingen</label>
+    <input type="checkbox" class="btw-optie" id="btw-stroom" name="btw-stroom" value="btw-stroom" checked>
+    <label for="btw-stroom" class="btw-optie">BTW op deze onderdelen</label>
+    <br><br>
+      
+
+    <hr>
+    <h2>Zonnepanelen / Teruglevering Stroom:</h2>
+
+    <h3> Zie uitleg over 
+        <a href="uitleg/teruglevering stroom.html" target="_blank">teruglevering stroom</a>.
+    </h3>
+
+    <input type="checkbox" id="teruglevering" name="teruglevering" value="teruglevering">
+    <label for="teruglevering">Zonnepanelen / Teruglevering Stroom van toepassing?</label>
+    <br>
+    <div id="div-teruglevering">
+    </div>
+
+    <div id="teruglevering-tabel-container" style="overflow-x:auto;"></div>
+
+    <div id="na-saldering-tabel-container" style="overflow-x:auto;">
+    </div>
+    <div id="na-saldering-tekst"></div> 
+
+    <div id="div-teruglever-kosten-input">
+    </div>
+
+    <div id="div-voordeel-zonnepanelen">
+    </div>
+    
+    <br>
+
+    <div id="container-prijsplafond-stroom"></div>
+  
+    <hr>
+    <h2>Vaste leveringskosten gas:</h2>
+
+    <h3> Zie uitleg over 
+        <a href="uitleg/vaste leveringskosten.html" target="_blank">vaste leveringskosten</a>.
+    </h3>
+
+    <p>
+        <label for="vaste-kosten-gas">Vaste leveringskosten gas</label>
+        <input type="text" id="vaste-kosten-gas" name="vaste-kosten-gas" disabled/>
+        <label id="vaste-kosten-gas-spec"></label>
+    </p>
+
+    <hr>
+    <h2>GAS verbruik en kosten in de notaperiode (bekend of geschat):</h2>
+
+    <h3> Zie uitleg over het invullen en de verwerking van je
+        <a href="uitleg/verbruik.html#verbruik-gas" target="_blank">verbruik gas</a>.
+    </h3>
+
+    <label for="verbruik-gas">Gas verbruik (m3):</label>
+    <input type="text" id="verbruik-gas" />
+
+    <p class="error" id="automatisch-verdelen-gas-input-error"></p>
+    <button id="automatisch-verdelen-verbruik-gas">automatisch verdelen?</button>
+
+    <p>Kies voor automatisch verdelen of neem hieronder de verdeling over van de nota voor een exacter resultaat.</p>
+
+    <div id="verbruik-gas-tabel-container" style="overflow-x:auto;"></div>
+
+    <button id="verwerk-verbruik-gas">VERWERK</button>
+    <p class="error" id="verbruik-gas-input-error"></p>
+
+    <p>Het tarief in de totaalregel is een gemiddelde over de hele notaperiode, bepaald door het totaalbedrag te delen door het totaalverbuik.</p>
+
+    <p>Getoonde bedragen bevatten:</p>
+    <input type="checkbox" class="kale-prijs-optie" id="kale-prijs-gas" name="kale-prijs-gas" value="kale-prijs-gas" checked>
+    <label for="kale-prijs-gas" class="kale-prijs-optie">Kale energieprijs</label>
+
+    <input type="checkbox" id="overheidsheffingen-gas" class="heffingen-optie" name="overheidsheffingen-gas" value="overheidsheffingen-gas" checked>
+    <label for="overheidsheffingen-gas" class="heffingen-optie">Overheidsheffingen</label>
+
+    <input type="checkbox" class="btw-optie" id="btw-gas" name="btw-gas" value="btw-gas" checked>
+    <label for="btw-gas" class="btw-optie">BTW op deze onderdelen</label>
+
+    <br><br>
+
+    <div id="container-prijsplafond-gas" style="overflow-x:auto;"></div>
+
+    <hr>
+    <h2>Netbeheerkosten:</h2>
+
+    <h3> Zie uitleg 
+        <a href="uitleg/netbeheerkosten.html" target="_blank">netbeheerkosten</a>.
+    </h3>
+
+    <label for="netbeheerkosten-stroom">Netbeheerkosten stroom</label>
+    <input type="text" id="netbeheerkosten-stroom" name="netbeheerkosten-stroom" />
+    <br>
+    <label for="netbeheerkosten-gas">Netbeheerkosten gas</label>
+    <input type="text" id="netbeheerkosten-gas" name="netbeheerkosten-gas" />
+    <br><button id="netbeheerkosten">VERWERK</button>
+    <br><br>
+
+    <hr>
+
+    <h2>Samenvatting nota:</h2>
+    <p>Een negatief bedrag betekent vermindering of teruggave</p>
+    <p id="nota-samenvatting"></p>
+    <div id="div-nota-samenvatting" style="overflow-x:auto;"></div>
+    <br><button id="toon-nota-samenvatting" hidden>Nota samenvatting vernieuwen</button>
+    <br>
+
+    <br>
+    <hr>
+
+    <footer>
+        <p>© 2024 Michel de Nijs, Nootdorp</p>
+        <p>Reacties naar: 
+            <a href="mailto:energienota@mdenijs.nl" target="_blank">energienota@mdenijs.nl</a>
+        </p>
+    </footer>
+
+    
+
+
+    <script src="energienota.js" charset="utf-8"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+:root {
+    --achtergrond: rgba(247, 226, 181, 0.801);
+    --eerste-kleur: rgb(160, 87, 19);
+    --tweede-kleur: rgb(190, 125, 34);
+    --summary-kleur: rgb(236, 125, 34);
+    --link-kleur: rgb(236, 125, 34);
+    --invoer-achtergrond: white;
+    --button-achtergrond: white;
+    --alarm-kleur: red;
+    --info-kleur: rgb(0, 119, 255);
+    --tabel-achtergrond: rgb(248, 244, 203);
+    --highlight-kleur: gold;
+    --button-markeer-rand: #73AD21;
+
+    --detail-info-achtergrond: white;
+    --detail-info-tabel-opvulling: rgb(231, 235, 247);
+    --detail-info-kopregel-achtergrond: rgb(208, 241, 215);
+    --detail-info-kleur: rgb(189, 118, 20);
+    --detail-info-detailregel-achtergrond: rgb(248, 246, 219);
+    --detail-info-highlight-kleur: rgb(248, 234, 153);
+    --hoger-tarief-kleur: red;
+    --lager-tarief-kleur: rgb(0, 196, 0);
+}
+
+body {
+    margin: 5%;
+    background-color: var(--achtergrond);
+    font-family: 'Ysabeau Office', sans-serif;
+}
+
+body, input {color: var(--eerste-kleur);}
+
+.inline {display: inline;}
+
+input {font-weight: bold;}
+
+label {
+    color: var(--eerste-kleur);
+    font-weight: bold;
+}
+
+p, details {
+    color: var(--tweede-kleur);
+    font-weight: bold;
+}
+
+details > summary {
+    color: var(--summary-kleur);
+    font-weight: bold;
+}
+
+a, .link {
+    color: var(--link-kleur);
+}
+
+hr {background-color: var(--eerste-kleur);
+    border: none; 
+    height: 1px;}
+
+label {
+    font-family: 'Ysabeau Office', sans-serif;
+    font-weight: bold;
+}
+
+button#disclaimer {
+    color: var(--alarm-kleur); 
+    background-color: var(--button-achtergrond);
+    font-size: small;
+    font-weight: normal;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 20%;
+}
+
+input[type="date"] {
+    font-family: 'Ysabeau Office', sans-serif;
+    font-weight: bold;
+}
+
+button, details {
+    cursor: pointer;
+}
+
+details > p {
+    background-color:var(--invoer-achtergrond) ;
+}
+
+button {
+    background-color: var(--button-achtergrond);
+    color: var(--eerste-kleur);
+    border: 1px solid var(--eerste-kleur);
+    border-radius: 5px;
+    padding: 5px;
+}
+button.plus {
+    background-color: var(--button-achtergrond);
+    border-radius: 0;
+    font-weight: bold;
+    font-size: larger;
+    margin-top: 1px;
+}
+
+button.info {
+    background-color: var(--achtergrond);
+    color: var(--info-kleur);
+    border: none;
+}
+
+.error {
+    color: var(--alarm-kleur);
+    background-color: var(--invoer-achtergrond);
+}
+
+.warning {
+    background-color: var(--invoer-achtergrond);
+}
+
+table {
+    border: 1px solid var(--eerste-kleur);
+    border-collapse: collapse;
+    border-spacing: 15px 15px;
+}
+th, td {
+    border: 1px solid;
+}
+  
+td, td > *, th, th > * {
+    text-align: center;
+    background-color: var(--tabel-achtergrond);
+    color: var(--eerste-kleur);
+    font-size: 95%;
+}
+
+td > input:not([type="button"]):enabled {
+    background-color: var(--invoer-achtergrond);
+}
+
+table#tarieven-tabel td {
+    background-color: var(--invoer-achtergrond);
+}
+
+td > input[type="button"].bin {
+    background-color: var(--achtergrond);
+    cursor: pointer;
+}
+
+td > input[type="button"].info {
+    background-color: var(--achtergrond);
+    cursor: pointer;
+}
+
+td > input[type="button"].table-info {
+    border: none;
+    text-align: center;
+    color: var(--info-kleur);
+    font-size: 95%;
+    cursor: pointer;
+}
+
+td > input {
+    border: none;
+    outline: none;
+    text-align: center;
+    font-family: 'Ysabeau Office', sans-serif;
+    font-weight: bold;
+}  
+
+td > input[type="text"] {
+    width: 90%;
+}  
+        
+input[type=checkbox].btw-optie {
+    transform: scale(0.8);
+}
+label.btw-optie {
+    font-size:smaller;
+}
+
+.highlight {
+    background-color: var(--highlight-kleur);
+}
+
+dialog { 
+    background-color: var(--invoer-achtergrond);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--eerste-kleur);
+}
+dialog * { 
+    background-color: var(--invoer-achtergrond);
+}
+
+dialog table {
+    background-color: var(--detail-info-tabel-opvulling);
+    border-style: solid;
+    border-width: 2px;
+}
+dialog button { 
+    background-color: var(--detail-info-tabel-opvulling);
+}
+dialog th { 
+    background-color: var(--detail-info-kopregel-achtergrond);
+}
+dialog input { 
+    background-color: var(--tabel-achtergrond);
+    color: var(--detail-info-kleur);
+}
+dialog td { 
+    background-color: var(--detail-info-detailregel-achtergrond);
+    color: var(--tweede-kleur);
+    border: none;
+}
+dialog th { 
+    border: none;
+}
+
+.vet {
+    background-color: var(--detail-info-highlight-kleur);
+    color: black;
+}
+.rood {
+    color: var(--hoger-tarief-kleur);
+}
+.groen {
+    color: var(--lager-tarief-kleur);
+}
+button.markeer {
+    border: 3px solid var(--button-markeer-rand);
+}
